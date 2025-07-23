@@ -8,41 +8,42 @@ let nextID  = 1
 
 // add a new tea 
 app.post("/teas",(req,res)=>{
-    const {name,price} = req.body
-    const newTea = {id:nextID++,name,price}
+    const {prices,name,time} = req.body
+    const newTea = {id:nextID++,name,prices,time}
     teaData.push(newTea) // saving in array we have no DB yet
     res.status(201).send(newTea)
 })
 
 // get all teas
-app.get("/teas",(req,res)=>{
+app.get("/allTeas",(req,res)=>{
     res.status(200).send(teaData);
 })
 
 
 // get one tea
-app.get("/teas/:id",(req,res)=>{
+app.get("/singleTea/:id",(req,res)=>{
    const tea =  teaData.find(ele => ele.id === parseInt(req.params.id))  // everythings which comes from url is in string form
    if(!tea){
     res.status(404).send("Tea not found")
    }
-    res.status(200).send(tea)
+    res.status(200).send(tea);
 })
 
 
 // update any tea
 
-app.put("/teas/:id",(req,res)=>{
+app.put("/updateTeas/:id",(req,res)=>{
     // const id =  req.params.id;
     const tea =  teaData.find(ele => ele.id === parseInt(req.params.id))
     if(!tea){
     res.status(404).send("Tea not found")
    }
 
-   const {name,price} = req.body
+   const {name,prices,time} = req.body
    tea.name = name;
-   tea.price = price;
-   res.send(200).send(tea)
+   tea.prices = prices;
+   tea.time = time;
+   res.status(200).send(tea)
 
 })
 
