@@ -1,6 +1,9 @@
+import 'dotenv/config';
+
 import express from 'express';
+
 const app = express();
-const port  = 7000;
+const port  =  process.env.PORT|| 7000;
 app.use(express.json())
 
 let teaData = []
@@ -73,3 +76,7 @@ app.delete("/teas/:id",(req,res)=>{
 app.listen(port,()=>{
     console.log(`Server is Running at port ${port}...`);
 })
+
+
+
+
